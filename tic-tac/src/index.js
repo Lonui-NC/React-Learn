@@ -2,10 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+// finished hightlight the cells when winning!
 function Square(props) {
   return (
     <button 
-      className="square"
+      className={props.highlight ? "square highlight" : "square"}
       onClick={props.onClick}
     >
       {props.value}
@@ -18,7 +19,7 @@ class Board extends React.Component {
     return <Square 
       value={this.props.squares[i]}
       onClick={() => this.props.onClick(i)}
-      // highlight={this.props.highlightCells.indexOf(i) > -1}
+      highlight={this.props.highlightCells.indexOf(i) > -1}
       />;
   }
 
@@ -78,7 +79,7 @@ class Game extends React.Component {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
-    if (calculateWinner(squares) || squares[i]) {
+    if (calculateWinner(squares).winner || squares[i]) {
       return; 
     }
     squares[i] = this.state.xIsNext ? 'X' : 'O';
@@ -113,7 +114,7 @@ class Game extends React.Component {
     // #2 refresh the desc of steps when click jumpTo
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[this.state.stepNumber];
-    const winner = calculateWinner(current.squares);
+    const {winner, cells} = calculateWinner(current.squares);
     let status;
     if (winner) {
       status = "Winner is: " + winner; 
@@ -144,7 +145,7 @@ class Game extends React.Component {
           <Board
             squares={current.squares}
             onClick={(i) => this.handleClick(i)}
-            // highlightCells={cells}
+            highlightCells={cells}
             />
         </div>
         <div className="game-info">
@@ -171,10 +172,16 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      return ({
+        winner: squares[a],
+        cells: [a, b, c]
+      });
     }
   }
-  return null;
+  return ({
+    winner: null, 
+    cells: []
+  })
 }
 
 
