@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { debug } from 'util';
 
 function Square(props) {
   return (
@@ -16,7 +15,6 @@ function Square(props) {
 
 class Board extends React.Component {
   renderSquare(i) {
-    debugger;
     return <Square 
       value={this.props.squares[i]}
       onClick={() => this.props.onClick(i)}
@@ -116,7 +114,6 @@ class Game extends React.Component {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
-    debugger;
     let status;
     if (winner) {
       status = "Winner is: " + winner; 
