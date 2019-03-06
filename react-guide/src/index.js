@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import './index.css';
 
 class NameForm extends Component {
   constructor(props) {
@@ -250,8 +251,157 @@ class Calculator extends Component {
   }
 }
 
+class Clock extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {date: new Date()};
+  }
+
+  // lifecycles => 
+  // tick is used to update the time
+  // the trick 
+  componentDidMount() {
+    this.timerID = setInterval(() => {
+      this.tick()
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  tick() {
+    this.setState({
+      date: new Date()
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Hello world!</h1>
+        <h2>It is {this.state.date.toLocaleTimeString()}. </h2>
+      </div>
+    );
+  }
+}
+
+function FancyBorder(props) {
+  return (
+    <div className={'FancyBorder FancyBorder-' + props.color}>
+      {props.children}
+    </div>
+  );
+}
+
+function Dialog(props) {
+  return (
+    <FancyBorder color="blue">
+      <h1 className="Dialog-title">
+        {props.title}
+      </h1>
+      <p className="Dialog-message">
+        {props.message}
+      </p>
+    </FancyBorder>
+  );
+}
+
+
+function WelcomeDialog() {
+  return (
+    <Dialog 
+      title="Hello!"
+      message="World!"
+    />
+  )
+}
+
+function Contacts() {
+  return <div className="Contacts"/>;
+}
+
+function Chat() {
+  return <div className="Chat" />;
+}
+
+function SplitPane(props) {
+  return (
+    <div className="SplitPane">
+      <div className="SplitPane-left">
+        {props.left}
+      </div>
+      <div className="SplitPane-right">
+        {props.right}
+      </div>
+      {props.children}
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <SplitPane 
+      left = {
+        <Contacts />
+      }
+      right = {
+        <Chat />
+      }
+    />
+  );
+}
+
+class SingUpDialog extends Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSignUp = this.handleSignUp.bind(this);
+    this.state = {
+      login: ''
+    };
+  }
+
+  render() {
+    return (
+      <Dialog title="Mars Exploration Program"
+              message="How should we refer to you?">
+        <input value={this.state.login}
+               onChange={this.handleChange}/>
+        <button onClick={this.handleSignUp}>
+          Sign Me Up!
+        </button>
+      </Dialog>
+    );
+  }
+
+  handleChange(e) {
+    this.setState({login: this.state.login})
+  }
+
+  handleSignUp(e) {
+    alert(`Welcome aborad! ${this.state.login}!`);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ReactDOM.render(
-  <Calculator />,
+  <WelcomeDialog />,
   document.getElementById('root')
 );

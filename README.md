@@ -12,4 +12,7 @@ March 6, 2019
 * React Guide - Forms
 * React Guide - Lifting state up 
 * React Guide - State and Lifecycle 
-
+* React Guide - Composition vs Inheritance 
+** The tip is never to use Inheritance since Composition can fulfill all the needs and much more flexible.
+* React Guide - Thinking in React
+** This one is really interesting https://reactjs.org/docs/thinking-in-react.html
