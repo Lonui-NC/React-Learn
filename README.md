@@ -20,17 +20,17 @@ March 6, 2019
 March 7, 2019
 * React Guide - Accessibility
 * React Guide - Code-Splitting
-** Bundling
-** Code-spliting - improve the load performance
-** import() => export => include/require other JS files
-** React.lazy => lazy load JS files
-** Suspense => handle if the external JS has not be loaded yet
-** Error Boundary => Add general error handling stuffs
-** Route-based code splitting => Named Exports
+  * Bundling
+  * Code-spliting - improve the load performance
+  * import() => export => include/require other JS files
+  * React.lazy => lazy load JS files
+  * Suspense => handle if the external JS has not be loaded yet
+  * Error Boundary => Add general error handling stuffs
+  * Route-based code splitting => Named Exports
 * React Guide - Context 
-** Context - share the same attributes 
+  * Context - share the same attributes 
 * React Guide - Error Boundaries 
-** This is useful!
+  * This is useful!
 
 
 
